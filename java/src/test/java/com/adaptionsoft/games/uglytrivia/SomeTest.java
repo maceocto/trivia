@@ -25,7 +25,8 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).purses = 5;
+        for (int i = 0; i < 5; i++)
+            game.players.get(0).answerCorrectly();
 
         // When
         boolean notWinner = game.correctAnswer();
@@ -40,14 +41,14 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
-        game.isGettingOutOfPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
+        game.players.get(0).canGettingOutOfPenaltyBox();
 
         // When
         game.correctAnswer();
 
         // Then
-        assertFalse(game.players.get(0).inPenaltyBox);
+        assertFalse(game.players.get(0).isInPenaltyBox());
     }
 
     @Test
@@ -62,7 +63,7 @@ public class SomeTest {
         // Then
         assertEquals(2, game.players.size());
         assertEquals(0, game.players.get(0).places);
-        assertEquals(0, game.players.get(0).purses);
+        assertEquals(0, game.players.get(0).getCoins());
     }
 
     @Test
@@ -105,7 +106,7 @@ public class SomeTest {
         game.wrongAnswer();
 
         // Then
-        assertTrue(game.players.get(0).inPenaltyBox);
+        assertTrue(game.players.get(0).isInPenaltyBox());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class SomeTest {
         game.correctAnswer();
 
         // Then
-        assertEquals(1, game.players.get(0).purses);
+        assertEquals(1, game.players.get(0).getCoins());
     }
 
     @Test
@@ -128,13 +129,13 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
 
         // When
         game.correctAnswer();
 
         // Then
-        assertEquals(0, game.players.get(0).purses);
+        assertEquals(0, game.players.get(0).getCoins());
     }
 
     @Test
@@ -143,15 +144,15 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
-        game.isGettingOutOfPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
+        game.players.get(0).canGettingOutOfPenaltyBox();
 
         // When
         game.correctAnswer();
 
         // Then
-        assertEquals(1, game.players.get(0).purses);
-        assertFalse(game.players.get(0).inPenaltyBox);
+        assertEquals(1, game.players.get(0).getCoins());
+        assertFalse(game.players.get(0).isInPenaltyBox());
     }
 
     @Test
@@ -160,7 +161,7 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = false;
+        game.players.get(0).answerCorrectly();
 
         // When
         game.roll(4);
@@ -175,7 +176,7 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = false;
+        game.players.get(0).answerCorrectly();
         game.players.get(0).places = 9;
 
         // When
@@ -191,13 +192,13 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
 
         // When
         game.roll(3);
 
         // Then
-        assertTrue(game.isGettingOutOfPenaltyBox);
+        assertFalse(game.players.get(0).cannotLeavePenaltyBox());
         assertEquals(3, game.players.get(0).places);
     }
 
@@ -207,14 +208,14 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
         game.players.get(0).places = 9;
 
         // When
         game.roll(5);
 
         // Then
-        assertTrue(game.isGettingOutOfPenaltyBox);
+        assertFalse(game.players.get(0).cannotLeavePenaltyBox());
         assertEquals(2, game.players.get(0).places);
     }
 
@@ -224,13 +225,13 @@ public class SomeTest {
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
-        game.players.get(0).inPenaltyBox = true;
+        game.players.get(0).goToPenaltyBox();
 
         // When
         game.roll(2);
 
         // Then
-        assertFalse(game.isGettingOutOfPenaltyBox);
+        assertTrue(game.players.get(0).cannotLeavePenaltyBox());
         assertEquals(0, game.players.get(0).places);
     }
 
@@ -246,6 +247,6 @@ public class SomeTest {
         game.roll(2);
 
         // Then
-        assertEquals(49, game.rockQuestions.size());
+        assertEquals(49, game.deck.rockQuestions.size());
     }
 }
