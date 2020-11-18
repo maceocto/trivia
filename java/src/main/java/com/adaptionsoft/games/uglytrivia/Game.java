@@ -88,6 +88,7 @@ public class Game {
         }
     }
 
+    //Deck
     private void askQuestion() {
         if (currentCategory() == POP)
             System.out.println(popQuestions.removeFirst());
@@ -99,18 +100,24 @@ public class Game {
             System.out.println(rockQuestions.removeFirst());
     }
 
-
     private String currentCategory() {
         int place = places[currentPlayer];
 
-        if (place == 0 || place == 4 || place == 8) {
-            return POP;
-        } else if (place == 1 || place == 5 || place == 9) {
-            return SCIENCE;
-        } else if (place == 2 || place == 6 || place == 10) {
-            return SPORT;
-        } else {
-            return ROCK;
+        switch (place) {
+            case 0:
+            case 4:
+            case 8:
+                return POP;
+            case 1:
+            case 5:
+            case 9:
+                return SCIENCE;
+            case 2:
+            case 6:
+            case 10:
+                return SPORT;
+            default:
+                return ROCK;
         }
     }
 
