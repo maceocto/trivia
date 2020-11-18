@@ -1,27 +1,26 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class SomeTest {
 
     @Test
-    public void bugWasCorrectlyAnsweredWhenPlayerHasNotSixPursesShouldNotWin() {
+    public void wasCorrectlyAnsweredWhenPlayerHasNotSixPursesShouldNotWin() {
         // Given
         Game game = new Game();
         game.add("Paulo");
         game.add("Mariane");
 
         // When
-        boolean winner = game.correctAnswer();
+        boolean notWinner = game.correctAnswer();
 
         // Then
-        assertFalse(winner);
+        assertTrue(notWinner);
     }
 
     @Test
-    public void bugWasCorrectlyAnsweredWhenPlayerHasSixPursesShouldWin() {
+    public void wasCorrectlyAnsweredWhenPlayerHasSixPursesShouldWin() {
         // Given
         Game game = new Game();
         game.add("Paulo");
@@ -29,10 +28,10 @@ public class SomeTest {
         game.purses[0] = 5;
 
         // When
-        boolean winner = game.correctAnswer();
+        boolean notWinner = game.correctAnswer();
 
         // Then
-        assertTrue(winner);
+        assertFalse(notWinner);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class SomeTest {
         game.isGettingOutOfPenaltyBox = true;
 
         // When
-        boolean winner = game.correctAnswer();
+        game.correctAnswer();
 
         // Then
         assertFalse(game.inPenaltyBox[0]);
@@ -117,7 +116,7 @@ public class SomeTest {
         game.add("Mariane");
 
         // When
-        boolean winner = game.correctAnswer();
+        game.correctAnswer();
 
         // Then
         assertEquals(1, game.purses[0]);
@@ -132,7 +131,7 @@ public class SomeTest {
         game.inPenaltyBox[0] = true;
 
         // When
-        boolean winner = game.correctAnswer();
+        game.correctAnswer();
 
         // Then
         assertEquals(0, game.purses[0]);
@@ -148,11 +147,11 @@ public class SomeTest {
         game.isGettingOutOfPenaltyBox = true;
 
         // When
-        boolean winner = game.correctAnswer();
+        game.correctAnswer();
 
         // Then
         assertEquals(1, game.purses[0]);
-        assertTrue(game.inPenaltyBox[0]);
+        assertFalse(game.inPenaltyBox[0]);
     }
 
     @Test

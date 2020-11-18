@@ -1,9 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Game {
     ArrayList players = new ArrayList();
@@ -37,7 +35,7 @@ public class Game {
         }
     }
 
-    public boolean add(String playerName) {
+    public void add(String playerName) {
 
         players.add(playerName);
         places[howManyPlayers()] = 0;
@@ -46,7 +44,6 @@ public class Game {
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
-        return true;
     }
 
     public int howManyPlayers() {
@@ -57,7 +54,9 @@ public class Game {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (manageInPenaltyBox(roll)) {
+        boolean isNotPenalty = manageInPenaltyBox(roll);
+
+        if (isNotPenalty) {
             setNextPlace(roll);
             System.out.println(players.get(currentPlayer)
                     + "'s new location is "
@@ -135,7 +134,7 @@ public class Game {
 
         boolean winner = didPlayerWin();
         nextPlayer();
-        return winner;
+        return !winner;
     }
 
     public boolean wrongAnswer() {
